@@ -1,0 +1,23 @@
+<h2>إضافة حساب مختبر طبي</h2>
+<form method="POST" action="/dashboard/add-lab">
+  <label>اسم المختبر:</label>
+  <input type="text" name="name" required>
+    <br>
+  <label>اسم المستخدم:</label>
+  <input type="text" name="username" required>
+<br>
+  <label>البريد الإلكتروني:</label>
+  <input type="email" name="email" required>
+<br>
+  <label>كلمة المرور:</label>
+  <input type="password" name="password" required>
+<br>
+  <label>تابع لأي عيادة:</label>
+  <select name="clinicId" required>
+    <% clinics.forEach(c => { %>
+      <option value="<%= c.id %>"><%= c.name %></option>
+    <% }) %>
+  </select>
+
+  <button type="submit">💾 إضافة المختبر</button>
+</form>

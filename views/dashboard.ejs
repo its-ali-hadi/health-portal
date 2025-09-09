@@ -1,0 +1,131 @@
+<%- include('partials/header', { title: 'لوحة التحكم' }) %>
+
+    <main class="container">
+        <h1>لوحة التحكم</h1>
+        
+        <section class="stats">
+            <div class="stat-card">
+                <h3>عدد الأطباء</h3>
+                <p class="count"><%= doctorCount %></p>
+            </div>
+            <div class="stat-card">
+                <h3>عدد المرضى</h3>
+                <p class="count"><%= patientCount %></p>
+            </div>
+            <div class="stat-card">
+                <h3>عدد الوصفات</h3>
+                <p class="count"><%= prescriptionCount %></p>
+            </div>
+            <div class="stat-card">
+                <h3>عدد العيادات</h3>
+                <p class="count"><%= clinicsCount %></p>
+            </div>
+            <div class="stat-card">
+                <h3>عدد المختبرات</h3>
+                <p class="count"><%= labCount %></p>
+            </div>
+            <div class="stat-card">
+                <h3>عدد المسؤليين</h3>
+                <p class="count"><%= adminCount %></p>
+            </div>
+           
+        </section>
+        
+        <!-- <section class="actions">
+            <a href="/dashboard/patients" class="btn">إدارة المرضى</a>
+            <a href="/dashboard/doctors" class="btn">إدارة الأطباء</a>
+            <a href="/dashboard/clinics" class="btn">ادارة العيادات</a>
+            <a href="/dashboard/labs" class="btn">ادارة المختبرات</a>
+            <a href="/dashboard/admins" class="btn">ادارة المسؤليين</a>
+            <br>
+            <a href="/dashboard/add-doctor" class="btn">إضافة طبيب جديد</a>
+            <a href="/dashboard/add-clinic" class="btn">إضافة عيادة جديدة</a>
+            <a href="/dashboard/add-lab" class="btn">اضافة مختبر جديد</a>
+            <a href="/dashboard/add-admin" class="btn">إنشاء حساب مسؤول</a>
+        </section> -->
+        
+        <section class="dashboard-stats">
+            <div class="stat-card"> 
+                <h3>الإجراءات</h3>
+                <div class="admin-actions" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                <a href="/dashboard/patients" class="btn">إدارة المرضى</a>
+                <a href="/dashboard/doctors" class="btn">إدارة الأطباء</a>
+                <a href="/dashboard/clinics" class="btn">ادارة العيادات</a>
+                <a href="/dashboard/labs" class="btn">ادارة المختبرات</a>
+                <a href="/dashboard/admins" class="btn">ادارة المسؤليين</a>
+                <!-- <a href="/dashboard/add-doctor" class="btn">إضافة طبيب جديد</a>
+                <a href="/dashboard/add-clinic" class="btn">إضافة عيادة جديدة</a>
+                <a href="/dashboard/add-lab" class="btn">اضافة مختبر جديد</a>
+                <a href="/dashboard/add-admin" class="btn">إنشاء حساب مسؤول</a> -->
+                </div>
+            </div>
+            <br>
+            <div class="stat-card">
+                <h3>آخر النشاطات</h3>
+                    <% logsWithUsernames.forEach((log, index) => { %>
+                        <%  if (index < 4) { %>
+                            <p><%= log.action %> by: <%= log.username %>, at: <%= new Date(log.timestamp).toLocaleString('en-US') %></p> 
+                            <br>
+                        <% } %>    
+                    <% }) %>
+                <a href="/dashboard/activity-logs" class="btn small">عرض الكل</a>
+            </div>
+            <br>
+            <div class="stat-card">
+                <h3>الرسائل الواردة</h3>
+                     <% messages.reverse().forEach((msg, index) => { %>
+                        <%  if (index < 2) { %>
+                        <div class="message-box">
+                            <h3><%= msg.title %></h3>
+                            <p><strong>الرسالة:</strong> <%= msg.message %></p>
+                            <p><small>by: <%= msg.num %></small></p>
+                            <p><small><%= msg.date %></small></p>
+                            <h3></h3>
+                        </div>
+                        <% } %>  
+                    <% }) %>
+                <a href="/dashboard/messages" class="btn small">عرض الكل</a>
+            </div>
+        </section>
+
+
+
+
+        <!-- <section class="doctors-list">
+            <h2>قائمة الأطباء</h2>
+            
+            <% if (doctors.length === 0) { %>
+                <p>لا يوجد أطباء مسجلين</p>
+            <% } else { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الصورة</th>
+                            <th>الاسم</th>
+                            <th>التخصص</th>
+                            <th>المستشفى</th>
+                            <th>التقييم</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% doctors.forEach(doctor => { %>
+                            <tr>
+                                <td><img src="<%= doctor.image %>" alt="<%= doctor.name %>" class="doctor-thumb"></td>
+                                <td><%= doctor.name %></td>
+                                <td><%= doctor.specialty %></td>
+                                <td><%= doctor.hospital %></td>
+                                <td><%= doctor.rating %> (<%= doctor.reviews %> تقييمات)</td>
+                                <td>
+                                    <a href="/doctor/<%= doctor.id %>" class="btn small">عرض</a>
+                                    <a href="/dashboard/edit-doctor/<%= doctor.id %>" class="btn small">تعديل</a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } %>
+        </section> -->
+    </main>
+
+<%- include('partials/footer') %>

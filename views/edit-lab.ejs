@@ -1,0 +1,38 @@
+<%- include("partials/header", { title: "تعديل العيادات"}) %>
+
+<main class="container">
+    <h1>تعديل بيانات المختبر</h1>
+    <div class="admin-actions">
+        <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+    </div>
+    <form action="/dashboard/update-lab/<%= lab.id %>" method="POST">
+        <div class="form-group">
+            <label>اسم المختبر:</label>
+            <input type="text" name="name" value="<%= lab.name %>" required>
+        </div> 
+
+        <div class="form-group">
+            <label>اسم المستخدم:</label>
+            <input type="text" name="username" value="<%= lab.username %>" required>
+        </div>
+        
+        <div class="form-group">
+            <label>البريد الإلكتروني:</label>
+            <input type="text" name="email" value="<%= lab.email %>" required>
+        </div>
+        <div class="form-group">
+            <label>العيادة المرتبطة:</label>
+             <select name="clinicId" required>
+                <% clinics.forEach(c => { %>
+                <option value="<%= c.id %>" <%= c.id === lab.clinicId ? 'selected' : '' %>>
+                    <%= c.name %>
+                </option>
+                <% }) %>
+            </select>
+        </div>    
+        <button type="submit" class="btn"> حفظ التعديلات</button>
+    </form>
+</main>
+
+
+<%- include("partials/footer") %>

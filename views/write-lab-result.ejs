@@ -1,0 +1,67 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('partials/header', { title: 'إرسال تحليل طبي' }) %>
+
+    <main class="container">
+        <div class="prescription-header">
+            <h1>إرسال تحليل طبي</h1>
+            <div class="patient-info">
+                <img src="<%= patient.image || 'https://via.placeholder.com/80' %>" 
+                     alt="<%= patient.name %>">
+                <div>
+                    <h3><%= patient.name %></h3>
+                    <p><%= patient.email || 'لا يوجد بريد إلكتروني' %></p>
+                    <p><%= patient.phone || 'لا يوجد هاتف' %></p>
+                </div>
+            </div>
+            <div class="doctor-info">
+                <p>المحلل: <strong>د. <%= labUser.name %></strong></p>
+                <p>التاريخ: <strong><%= new Date().toLocaleDateString('ar-EG') %></strong></p>
+            </div>
+        </div>
+        
+        <form action="/send-lab-result" method="POST">
+            <input type="hidden" name="patientId" value="<%= patient.id %>">
+            <input type="hidden" name="doctorId" value="<%= labUser.id %>">
+             <input type="hidden" name="patientId" value="<%= patient.id %>">
+            <input type="hidden" name="doctorId" value="<%= currentUser.id %>">
+            
+            <div class="form-group">
+                <label for="diagnosis">نوع التحليل:</label>
+                <textarea id="diagnosis" name="type" type="text" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="medications">نتيجة التحليل:</label>
+                <textarea id="medications" name="content" rows="5" required></textarea>
+                <!-- <small>مثال: باراسيتامول | 500 مجم | كل 8 ساعات | 5 أيام</small> -->
+            </div>
+            
+           
+
+            <button type="submit" class="btn">إرسال</button>
+            <a href="/patient/<%= patient.id %>" class="btn cancel">إلغاء</a>
+            <!-- باقي حقول الوصفة -->
+        </form>
+    </main>
+
+<%- include('partials/footer') %>

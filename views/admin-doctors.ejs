@@ -1,0 +1,54 @@
+<%- include('partials/header', { title: 'إدارة الأطباء' }) %>
+
+    <main class="container">
+        <h1>إدارة الأطباء</h1>
+        
+        <div class="admin-actions">
+            <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+            <a href="/dashboard/add-doctor" class="btn">إضافة طبيب جديد</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>الصورة</th>
+                        <th>الاسم</th>
+                        <th>اسم المستخدم</th>
+                        <th>التخصص</th>
+                        <th>المستشفى</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>التقييم</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% doctors.forEach(doctor => { %>
+                        <tr data-doctor-id="<%= doctor.id %>">
+                            <td><%= doctor.id %></td>
+                            <td>
+                                <img src="<%= doctor.image || 'https://via.placeholder.com/50' %>" 
+                                     alt="<%= doctor.name %>" class="doctor-thumb">
+                            </td>
+                            <td class="editable" data-field="name"><%= doctor.name %></td>
+                            <td class="editable" data-field="username"><%= doctor.username %></td>
+                            <td class="editable" data-field="specialty"><%= doctor.specialty %></td>
+                            <td class="editable" data-field="hospital"><%= clinics.find(c => c.id === parseInt(doctor.clinicId)).name %></td>
+                            <td class="editable" data-field="email"><%= doctor.email %></td>
+                            <td><%= doctor.rating %> (<%= doctor.reviews %> تقييمات)</td>
+                            <td class="actions">
+                                <button class="btn btn-save" style="display:none;">حفظ</button>
+                                <button class="btn btn-cancel" style="display:none;">إلغاء</button>
+                                <button class="btn btn-edit">تعديل</button>
+                                <button class="btn btn-delete">حذف</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/js/admin-doctors.js"></script>
+<%- include('partials/footer') %>

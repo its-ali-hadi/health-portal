@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الصحة - <%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="navbar-logo">
+    <img class="img-logo" src="https://png.pngtree.com/png-vector/20220118/ourmid/pngtree-flat-hospital-building-icon-on-isolated-background-icon-service-city-vector-png-image_43883858.jpg" alt="">
+    <a href="/">بوابة الصحة</a>
+  </div>
+
+  <nav class="navbar-links">
+    <ul>
+      <li><a href="/" class="hover-underline-animation center">الرئيسية</a></li>
+      <li><a href="/doctors" class="hover-underline-animation center">الاطباء</a></li>
+      <li><a href="/search-clinics" class="hover-underline-animation center">العيادات</a></li>
+      <li><a href="/help" class="hover-underline-animation center">تواصل معنا</a></li>
+    </ul>
+  </nav>
+
+  <div class="navbar-auth">
+    <% if (currentUser) { %>
+    <div class="user-profile">
+        <div class="user-info">
+            <img src="<%=  currentUser.image || 'https://via.placeholder.com/40' %>" alt="User Avatar">
+            <span><%= currentUser.username %></span>
+        </div>
+        <ul class="dropdown-menu">
+            <% if (currentUser.role === 'patient') { %>
+                <li><a href="/patient/<%= currentUser.patientId %>">ملفي الشخصي</a></li>
+            <% } %>
+            <% if (currentUser.role === 'admin') { %>
+                <li><a href="/dashboard">لوحة التحكم</a></li>
+            <% } %>
+            <% if (currentUser.role === 'doctor') { %>
+                <li><a href="/doctor/<%= currentUser.id %>">ملفي الشخصي</a></li>
+                <li><a href="/doctor-dashboard">لوحة التحكم</a></li>
+
+            <% } %>
+            <% if (currentUser.role === 'lab') { %>
+                <li><a href="/lab-dashboard">لوحة التحكم</a></li>
+            <% } %>
+            <li><a href="/logout">تسجيل الخروج</a></li>
+        </ul>
+    </div>
+    <% } else { %>
+        <a href="/login" class="big-on-hover">تسجيل الدخول</a>
+    <% } %>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="burger" onclick="toggleMenu()">☰</div>
+  <!-- قائمة موبايل -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/">الرئيسية</a>
+    <a href="/doctors">البحث عن دكتور</a>
+    <a href="/search-clinics">البحث عن عيادات</a>
+    <a href="/help">تواجه مشكلة ؟</a>
+    <% if (currentUser) { %>
+    <div class="user-profile">
+        <div class="user-info">
+            <img src="<%=  currentUser.image || 'https://via.placeholder.com/40' %>" alt="User Avatar">
+            <span><%= currentUser.username %></span>
+        </div>
+        <ul class="dropdown-menu">
+            <% if (currentUser.role === 'patient') { %>
+                <li><a href="/patient/<%= currentUser.patientId %>">ملفي الشخصي</a></li>
+            <% } %>
+            <% if (currentUser.role === 'admin') { %>
+                <li><a href="/dashboard">لوحة التحكم</a></li>
+            <% } %>
+            <% if (currentUser.role === 'doctor') { %>
+                <li><a href="/doctor-dashboard">لوحة التحكم</a></li>
+            <% } %>
+            <li><a href="/logout">تسجيل الخروج</a></li>
+        </ul>
+    </div>
+    <% } else { %>
+        <a href="/login">تسجيل الدخول</a>
+    <% } %>
+  </div>
+</header>

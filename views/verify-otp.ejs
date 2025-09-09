@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل – خطوة ٢</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>أدخل رمز التحقق</h2>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form action="/verify-otp" method="POST">
+      <input type="hidden" name="phone" value="<%= phone %>">
+      <label>رمز التحقق:</label>
+      <input type="text" name="code" maxlength="6" pattern="\d{6}" required>
+      <button type="submit">تحقق</button>
+    </form>
+  </div>
+</body>
+</html>

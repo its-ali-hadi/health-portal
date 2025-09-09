@@ -1,0 +1,20 @@
+<%- include('partials/header', { title: 'الرسائل الواردة' }) %>
+
+<main class="container">
+  <h1>الرسائل الواردة</h1>
+<div class="admin-actions">
+            <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+        </div>
+  <% messages.reverse().forEach(msg => { %>
+    <div class="message-box">
+        <h3><%= msg.title %></h3>
+        <p><strong>الرسالة:</strong> <%= msg.message %></p>
+        <p><small>by: <%= msg.num %></small></p>
+        <p><small>IP: <%= msg.ip %></small></p>
+        <p><small><%= msg.date %></small></p>
+        <h3></h3>
+    </div>
+  <% }) %>
+</main>
+
+<%- include('partials/footer') %>

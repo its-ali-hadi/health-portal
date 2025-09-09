@@ -1,0 +1,70 @@
+<%- include('partials/header', { title: 'بحث عن المرضى' }) %>
+
+<main class="container">
+    <h1>إدارة بيانات المرضى</h1>
+    
+    <div class="search-card">
+        <form action="/search-patients" method="GET" class="search-form">
+            <div class="form-group">
+                <input type="text" 
+                       name="query" 
+                       value="<%= searchQuery || '' %>" 
+                       placeholder="ابحث بالمريض (الاسم، البريد، الهاتف، ID)"
+                       aria-label="بحث عن المرضى"
+                       required>
+                <button type="submit" class="btn btn-search">
+                    <i class="search-icon">🔍</i> بحث
+                </button>
+            </div>
+        </form>
+        
+        <% if (searchQuery && resultsCount === 0) { %>
+            <div class="empty-state" >
+                <p>لا توجد نتائج لـ "<%= searchQuery %>"</p>
+                <a href="/search-patients" class="btn">عرض جميع المرضى</a>
+            </div>
+        <% } else if (resultsCount > 0) { %>
+            <div class="results-header">
+                <p>عرض <%= resultsCount %> نتيجة</p>
+            </div>
+            
+            <div class="patients-grid" >
+                <% patients.forEach(patient => { %>
+                    <div class="patient-card" style="box-shadow: 0 6px 10px rgba(0,0,0,0.1);">
+                        <div class="patient-avatar">
+                            <img src="<%= patient.image || '/images/default-avatar.png' %>" 
+                                 alt="صورة <%= patient.name %>">
+                        </div>
+                        <div class="patient-details">
+                            <h3><%= patient.name %></h3>
+                            <p><%= patient.email || 'لا يوجد بريد' %></p>
+                            <p><%= patient.phone || 'لا يوجد هاتف' %></p>
+                            <p class="patient-id">ID: <%= patient.id %></p>
+                        </div>
+                        <div class="patient-actions">
+                            <% if(currentUser.role === 'lab') { %>
+                                <a href="/lab-write/<%= patient.id %>" 
+                                   class="btn btn-primary">
+                                   كتابة نتئاج التحاليل
+                                </a>
+                                <br>
+                                <a href="/patient/<%= patient.id %>" class="btn btn-primary">الملف الشخصي للمريض</a>
+                            <% } else { %>
+                            <a href="/write-prescription/<%= patient.id %>" 
+                               class="btn btn-primary">
+                               كتابة وصفة
+                            </a>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p>استخدم مربع البحث أعلاه للعثور على المرضى</p>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,13 @@
+<%- include('partials/header', { title: 'خطأ في الصلاحيات' }) %>
+
+    <main class="container">
+        <section class="error-section">
+            <h2>خطأ في الصلاحيات</h2>
+            <div class="alert alert-error">
+                <%= message %>
+            </div>
+            <a href="/" class="btn">العودة للصفحة الرئيسية</a>
+        </section>
+    </main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,13 @@
+<%- include('partials/header', { title: 'لوحة تحكم الطبيب' }) %>
+
+    <main class="container">
+        <h1>مرحباً : <%= currentUser.name %></h1>
+        <p class="welcome-message">أنت المحلل في عيادة: <%= clinicName %></p>
+        
+        <section class="doctor-actions">
+            <a href="/patients-list" class="btn">قائمة المرضى</a>
+            <a href="/search-patients" class="btn">بحث عن المرضى</a>
+        </section>
+    </main>
+
+<%- include('partials/footer') %>

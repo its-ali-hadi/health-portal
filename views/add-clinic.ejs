@@ -1,0 +1,42 @@
+<%- include('partials/header', { title: 'إضافة عيادة جديدة' }) %>
+
+<main class="container">
+  <h1>إضافة عيادة جديدة</h1>
+  <div class="admin-actions">
+      <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+  </div>
+  <form action="/dashboard/add-clinic" method="POST">
+    <div class="form-group">
+      <label>اسم العيادة:</label>
+      <input type="text" name="name" required><br>
+    </div>
+    <div class="form-group">
+      <label>موقع العيادة:</label>
+      <input type="text" name="location" required><br>
+    </div>
+    <div class="form-group">
+      <label>وصف العيادة:</label>
+      <textarea name="description" required></textarea><br>
+    </div>
+    <!-- <div class="form-group">
+    <label>أوقات الدوام:</label>
+    <textarea name="schedule" placeholder="مثلاً:\nالأحد: 9ص - 1م، 5م - 9م" required></textarea><br>
+    </div> -->
+     <fieldset style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+            <legend>مواعيد العمل</legend>
+            
+            <% const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']; %>
+            <% days.forEach(day => { %>
+                <div class="schedule-day" >
+                <h4><%= day %></h4>
+                <div class="form-group">
+                    <input type="text" name="schedule[<%= day %>][morning]" 
+                        placeholder="مثال: 9 ص - 12 م" required>
+                </div>
+                </div>
+            <% }); %>
+            </fieldset>
+    <button type="submit" class="btn">حفظ</button>
+  </form>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,42 @@
+<%- include('partials/header', { title: 'البحث عن أطباء' }) %>
+
+    <main class="container">
+        <section class="search-section">
+            <h2>ابحث عن طبيب</h2>
+            <form id="doctor-search">
+                <div class="form-group">
+                    <label for="specialty">التخصص:</label>
+                    <select id="specialty">
+                        <option value="">جميع التخصصات</option>
+                        <option value="cardiology">أمراض القلب</option>
+                        <option value="dentist">طب الأسنان</option>
+                        <option value="dermatology">الأمراض الجلدية</option>
+                        <option value="neurology">الأعصاب</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="doctor-name">اسم الطبيب:</label>
+                    <input type="text" id="doctor-name" placeholder="ابحث باسم الطبيب">
+                </div>
+                <button type="submit" class="btn">بحث</button>
+            </form>
+        </section>
+
+        <section class="doctors-list" id="doctors-container">
+            <% if (!doctors || doctors.length === 0) { %>
+                <p class="no-doctors">لا توجد بيانات للأطباء متاحة حالياً</p>
+            <% } else { %>
+                <% doctors.forEach(doctor => { %>
+                    <div class="doctor-card">
+                        <img src="<%= doctor.image %>" alt="صورة الطبيب">
+                        <h3><%= doctor.name %></h3>
+                        <p class="specialty"><%= doctor.specialty %></p>
+                        <p class="hospital"><%= doctor.clinicName %></p>
+                        <a href="/doctor/<%= doctor.id %>" class="btn">عرض الملف الشخصي</a>
+                    </div>
+                <% }); %>
+            <% } %>
+        </section>
+    </main>
+
+<%- include('partials/footer') %>

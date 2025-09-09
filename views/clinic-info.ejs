@@ -1,0 +1,90 @@
+
+
+
+
+<%- include('partials/header', { title: 'ملف الطبيب' }) %>
+
+    <main class="container" style="margin-top: 50px;">
+        <section class="doctor-profile">
+            <div class="profile-header">
+                <img src="<%=  %>" alt="صورة العيادة">
+                <div class="profile-info">
+                    <h2><%= clinic.name %></h2>
+                    <p class="specialty"><%= clinic.location %></p>
+                    <p class="hospital"><%= clinic.description %></p>
+                </div>
+            </div>
+
+            <div class="profile-details">
+                
+                
+                <!-- بعد معلومات الطبيب الأساسية -->
+<div class="schedule-container">
+  <h3>الاطباء في العيادة</h3>
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>اسم الطبيب</th>
+        <th>تخصصه</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% doctors.forEach(doc => { %>
+        <tr>
+          <td><%= doc.name %></td>
+          <td><%= doc.specialty %> ,<a href="/doctor/<%= doc.id %>">المزيد من المعلومات</a></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <br>
+  <h3>المختبرات في العيادة</h3>
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>اسم المختبر</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% labs.forEach(lab => { %>
+        <tr>
+          <td><%= lab.name %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+
+
+ <h3>مواعيد العمل</h3>
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>اليوم</th>
+        <th>فترة الدوام</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Object.entries(clinic.schedule).forEach(([day, times]) => { %>
+        <tr>
+          <td>
+            <% if (day === 'الأحد') { %> الأحد <% } %>
+            <% if (day === 'الإثنين') { %> الإثنين <% } %>
+            <% if (day === 'الثلاثاء') { %> الثلاثاء <% } %>
+            <% if (day === 'الأربعاء') { %> الأربعاء <% } %>
+            <% if (day === 'الخميس') { %> الخميس <% } %>
+            <% if (day === 'الجمعة') { %> الجمعة <% } %>
+            <% if (day === 'السبت') { %> السبت <% } %>
+          </td>
+          <td><%= times.morning %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+                              
+            </div>
+        </section>
+    </main>
+
+<%- include('partials/footer') %>

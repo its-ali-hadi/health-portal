@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>بحث المستخدمين</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f5f5f5; }
+    form, ul { margin-bottom: 1.5rem; }
+    input, button, select { padding: .5rem; font-size: 1rem; }
+    .user-card { background: #fff; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
+    .user-card label { display: block; margin: .5rem 0 .2rem; }
+    .user-card input[type="password"] { width: calc(100% - 1rem); }
+  </style>
+</head>
+<body>
+  <h2>🔍 البحث عن مستخدمين</h2>
+  <form method="GET" action="/dashboard/user-search">
+    <input type="text" name="query" placeholder="أدخل ID أو اسم مستخدم أو بريد أو هاتف"
+           value="<%= query %>" required>
+    <button type="submit">بحث</button>
+  </form>
+
+  <% if (results.length > 0) { %>
+    <h3>نتائج البحث:</h3>
+    <ul>
+      <% results.forEach(user => { %>
+        <li class="user-card">
+          <strong>الاسم:</strong> <%= user.name || '-' %><br>
+          <strong>المعرف:</strong> <%= user.id %> | <br>
+          <strong>الدور:</strong> <%= user.role %><br>
+          <strong>اسم المستخدم:</strong> <%= user.username || '-' %><br>
+          <strong>البريد:</strong> <%= user.email || '-' %> | <br>
+          <strong>الهاتف:</strong> <%= user.phone || '-' %><br>
+
+          <form method="POST" action="/dashboard/user-reset-password">
+            <input type="hidden" name="userId" value="<%= user.id %>">
+            <input type="hidden" name="source" value="<%= user._source %>">
+
+            <label>كلمة المرور الجديدة:</label>
+            <input type="password" name="newPassword" placeholder="******" required>
+
+            <button type="submit">تحديث كلمة المرور</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else if (query) { %>
+    <p>لم تجد أي مستخدم يطابق "<%= query %>"</p>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<%- include('partials/header', { title: 'ملف المريض' }) %>
+
+    <main class="container" style="margin-top: 50px;">
+        <section class="patient-profile">
+            <div class="profile-header">
+                <img src="<%= patient.image %>" alt="صورة المريض">
+                <div class="profile-info">
+                    <h2><%= patient.name %></h2>
+                    <p class="email"><%= patient.email %></p>
+                    <p class="phone"><%= patient.phone %></p>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <div class="profile-content">
+                <div class="tessssst">
+                    <% if (appointments.length > 0) { %>
+                    <h3>المواعيد القادمة</h3>
+                    <% appointments.reverse().forEach(app => { %>
+                        <div class="history-card">
+                            <p class="date"><%= app.date %> - <%= app.time %></p>
+                            <p class="doctor"><%= app.doctorName %> - <%= app.specialty %></p>
+                            <form method="POST" action="/appointments/<%= app.id %>?_method=DELETE" onsubmit="return confirm('هل تريد حذف هذا الموعد؟');">
+                                <button class="btn cancel-btn" type="submit">حذف</button>
+                            </form>
+
+                            <!-- <button >إلغاء الموعد</button> -->
+                        </div>
+                    <% }) %>
+                    <% } else { %>
+                        <p>لا توجد حجوزات حالياً</p>
+                    <% } %>
+                </div>
+
+                <div class="tessssst">
+                    <h3>السجل الطبي</h3>
+                    <% medicalHistory.reverse().forEach(history => { %>
+                        <div class="history-card">
+                            <p class="date"><%= history.date %></p>
+                            <p class="doctor"><%= history.doctorName %></p>
+                            <p class="diagnosis"><%= history.diagnosis %></p>
+                            <a href="/prescription/<%= history.prescriptionId %>" class="view-prescription">عرض الوصفة الطبية</a>
+                        </div>
+                    <% }) %>
+                </div>
+
+
+
+
+                <div class="tessssst">
+                    <h3>التحاليل</h3>
+                        <% if (labResults.length > 0) { %>
+                        <% labResults.reverse().forEach(r => { %>
+                        <div class="history-card">
+                            <p class="date"><%= r.type %></p>
+                            <p class="doctor"><%= r.date %></p>
+                            <p class="diagnosis"><%= r.content %></p>
+                            <a href="#" class="view-prescription">عرض تفاصيل التحليل</a>
+                        </div>
+                    <% }) %>
+                    <% } else { %>
+                    <p>لا توجد تحاليل لهذا المريض.</p>
+                    <% } %>                
+                </div>
+
+               
+
+
+            </div>
+        </section>
+    </main>
+
+<%- include('partials/footer') %>

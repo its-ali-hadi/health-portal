@@ -1,0 +1,55 @@
+<%- include('partials/header', { title: 'كتابة وصفة طبية' }) %>
+
+    <main class="container">
+        <div class="prescription-header">
+            <h1>كتابة وصفة طبية</h1>
+            <div class="patient-info">
+                <img src="<%= patient.image || 'https://via.placeholder.com/80' %>" 
+                     alt="<%= patient.name %>">
+                <div>
+                    <h3><%= patient.name %></h3>
+                    <p><%= patient.email || 'لا يوجد بريد إلكتروني' %></p>
+                    <p><%= patient.phone || 'لا يوجد هاتف' %></p>
+                </div>
+            </div>
+            <div class="doctor-info">
+                <p>الطبيب: <strong>د. <%= doctor.name %></strong></p>
+                <p>التخصص: <strong><%= doctor.specialty %></strong></p>
+                <p>التاريخ: <strong><%= new Date().toLocaleDateString('ar-EG') %></strong></p>
+            </div>
+        </div>
+        
+        <form action="/submit-prescription" method="POST">
+            <input type="hidden" name="patientId" value="<%= patient.id %>">
+            <input type="hidden" name="doctorId" value="<%= doctor.id %>">
+             <input type="hidden" name="patientId" value="<%= patient.id %>">
+            <input type="hidden" name="doctorId" value="<%= currentUser.id %>">
+            
+            <div class="form-group">
+                <label for="diagnosis">التشخيص:</label>
+                <textarea id="diagnosis" name="diagnosis" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="medications">الأدوية (استخدم هذا التنسيق: اسم الدواء | الجرعة | التكرار | المدة):</label>
+                <textarea id="medications" name="medications" rows="5" required></textarea>
+                <small>مثال: باراسيتامول | 500 مجم | كل 8 ساعات | 5 أيام</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="instructions">تعليمات إضافية (سطر لكل تعليمة):</label>
+                <textarea id="instructions" name="instructions" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="analysis">تحاليل الاضافية: </label>
+                <textarea id="analysis" name="analysis" rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn">حفظ الوصفة</button>
+            <a href="/patient/<%= patient.id %>" class="btn cancel">إلغاء</a>
+            <!-- باقي حقول الوصفة -->
+        </form>
+    </main>
+
+<%- include('partials/footer') %>

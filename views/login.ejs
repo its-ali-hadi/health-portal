@@ -1,0 +1,34 @@
+<%- include('partials/header', { title: 'تسجيل الدخول' }) %>
+
+    <main class="container">
+        <section class="login-section">
+            <h2>تسجيل الدخول</h2>
+            
+            <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+            
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" style=" position: relative; right: 50%; left: 50%; transform: translate(50%, 10%);" class="btn">تسجيل الدخول</button>
+            </form>
+            <p class="register-link">نسيت كلمة المرور ؟ <a href="/help">تواصل معنا</a></p>
+            <p class="register-link">ليس لديك حساب؟ <a href="/register">سجل الآن</a></p>
+
+            <% if (typeof registered !== 'undefined' && registered) { %>
+            <div class="alert alert-success">تم تسجيل حسابك بنجاح، يرجى تسجيل الدخول</div>
+            <% } %>
+        </section>
+    </main>
+    <% if (typeof loggedOut !== 'undefined' && loggedOut) { %>
+  <div class="alert alert-info">تم تسجيل الخروج بنجاح</div>
+<% } %>
+
+<%- include('partials/footer') %>

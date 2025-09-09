@@ -1,0 +1,78 @@
+<%- include('partials/header', { title: 'وصفة طبية' }) %>
+
+    <main class="container">
+        <section class="prescription">
+            <div class="prescription-header">
+                <h2>وصفة طبية</h2>
+                <div class="prescription-info">
+                    <div class="doctor-info">
+                        <p><strong>الطبيب:</strong> <%= doctor.name %></p>
+                        <p><strong>التخصص:</strong> <%= doctor.specialty %></p>
+                        <p><strong>تاريخ الصدور:</strong> <%= prescription.date %></p>
+                    </div>
+                    <div class="patient-info">
+                        <p><strong>المريض:</strong> <%= patient.name %></p>
+                        <p><strong>البريد الإلكتروني:</strong> <%= patient.email %></p>
+                        <p><strong>رقم الملف:</strong> <%= patient.id %></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prescription-content">
+                <h3>التشخيص:</h3>
+                <p><%= prescription.diagnosis %></p>
+                
+                <h3>العلاج:</h3>
+                <table>
+                    <tr>
+                        <th>الدواء</th>
+                        <th>الجرعة</th>
+                        <th>التكرار</th>
+                        <th>المدة</th>
+                    </tr>
+                    <% prescription.medications.forEach(med => { %>
+                        <tr>
+                            <td><%= med.name %></td>
+                            <td><%= med.dosage %></td>
+                            <td><%= med.frequency %></td>
+                            <td><%= med.duration %></td>
+                        </tr>
+                    <% }); %>
+                </table>
+                
+
+                <div class="teststsettts">
+                    <div>
+                <% if (prescription.instructions && prescription.instructions.length > 0) { %>
+                    <h3>تعليمات إضافية:</h3>
+                    <ul>
+                        <% prescription.instructions.forEach(instruction => { %>
+                            <li><%= instruction %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+                    </div>
+                    <div>
+                <% if (prescription.analysis && prescription.analysis.length > 0) { %>
+                    <h3>تحاليل المطلوبة:</h3>
+                    <ul>
+                            <li><%= prescription.analysis %></li>
+                    </ul>
+                <% } %>
+                </div>
+                </div>
+                <div class="doctor-signature">
+                    <p>توقيع الطبيب:</p>
+                    <img src="https://via.placeholder.com/150x50" alt="توقيع الطبيب">
+                    <p><%= doctor.name %></p>
+                </div>
+            </div>
+            
+            <div class="prescription-actions">
+                <button class="btn print-btn">طباعة الوصفة</button>
+                <button class="btn save-btn">حفظ كملف PDF</button>
+            </div>
+        </section>
+    </main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,42 @@
+<%- include('partials/header', { title: 'سجل النشاطات' }) %>
+
+    <main class="container">
+        <h1>سجل النشاطات والنظام</h1>
+        
+        <div class="admin-actions">
+            <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="activity-logs">
+                <thead>
+                    <tr>
+                        <th>التاريخ</th>
+                        <th>المستخدم</th>
+                        <th>الإجراء</th>
+                        <th>التفاصيل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% logs.forEach(log => { %>
+                        <tr>
+                            <td><%= new Date(log.timestamp).toLocaleString('en-US') %></td>
+                            <td><%= log.username %></td>
+                            <td>
+                                <%= log.action %>
+                            </td>
+                            <td>
+                                <% if (log.details) { %>
+                                    <%= JSON.stringify(log.details) %>
+                                <% } else { %>
+                                    -
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+<%- include('partials/footer') %>

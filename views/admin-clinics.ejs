@@ -1,0 +1,53 @@
+<%- include('partials/header', { title: 'إدارة العيادات' }) %>
+
+  
+    <main class="container">
+
+  <h1>إدارة العيادات</h1>
+
+  <div class="admin-actions">
+        <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+        <a href="/dashboard/add-clinic" class="btn">إضافة عيادة جديدة</a>
+    </div>
+
+<div class="table-responsive">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>الاسم</th>
+        <th>الموقع</th>
+        <th>الوصف</th>
+        <th>أوقات الدوام</th>
+        <th>الإجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% clinics.forEach(clinic => { %>
+        <tr>
+          <td><%= clinic.id %></td>
+          <td><%= clinic.name %></td>
+          <td><%= clinic.location %></td>
+          <td><%= clinic.description %></td>
+          <td>
+            <ul>
+                <%= clinic.schedule %>
+              <!-- <% //clinic.schedule.forEach(s => { %>
+                <li><%= //s %></li>
+              <% //}) %> -->
+            </ul>
+          </td>
+          <td class="actions">
+            <a href="/clinic/<%= clinic.id %>" class="btn btn-edit">الصفحة العامة</a>
+            <a href="/dashboard/edit-clinic/<%= clinic.id %>" class="btn btn-edit"> تعديل</a>
+            <br>
+            <form method="POST" action="/dashboard/delete-clinic/<%= clinic.id %>?_method=DELETE" style="display:inline;" onsubmit="return confirm('هل أنت متأكد من حذف هذه العيادة؟');">
+              <button class="btn btn-delete" type="submit"> حذف</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+        </div>
+    </main>

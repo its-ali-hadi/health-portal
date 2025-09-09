@@ -1,0 +1,29 @@
+<%- include('partials/header', { title: 'لوحة تحكم الطبيب' }) %>
+
+    <main class="container">
+        <h1>مرحباً دكتور <%= currentUser.name %></h1>
+        <p class="welcome-message">أنت مسجل كمختص في <%= currentUser.specialty %></p>
+        
+        <section class="doctor-actions">
+            <a href="/patients-list" class="btn">قائمة المرضى</a>
+            <a href="/search-patients" class="btn">بحث عن المرضى لكتابة وصفة</a>
+        </section>
+
+        <h2>الحجوزات القادمة</h2>
+        <ul>
+        <% appointments.forEach(app => { %>
+            <li>
+                <strong>المريض:</strong> <%= app.patientName %><br>
+                <strong>ID:</strong> <%= app.patientId %><br>
+                <strong>رقم الهاتف:</strong> <%= app.patientPhone %><br>
+                <strong>التاريخ:</strong> <%= app.date %> | <strong>الساعة:</strong> <%= app.time %><br>
+                <strong>الحالة:</strong> <%= app.status %>
+            </li>
+            <form method="POST" action="/appointments/<%= app.id %>?_method=DELETE" onsubmit="return confirm('هل أنت متأكد من حذف هذا الحجز؟');">
+                <button type="submit"> حذف الحجز</button>
+            </form>
+        <% }) %>
+        </ul>
+    </main>
+
+<%- include('partials/footer') %>

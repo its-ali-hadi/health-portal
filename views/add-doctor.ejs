@@ -1,0 +1,81 @@
+<%- include('partials/header', { title: 'إضافة طبيب جديد' }) %>
+
+    <main class="container">
+        <h1>إضافة طبيب جديد</h1>
+        <div class="admin-actions">
+            <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+        </div>
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-error"><%= error %></div>
+        <% } %>
+        
+        <form action="/dashboard/add-doctor" method="POST">
+            <div class="form-group">
+                <label for="name">اسم الطبيب:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="specialty">التخصص:</label>
+                <input type="text" id="specialty" name="specialty" required>
+            </div>
+            
+            <div class="form-group">
+            <label for="clinicId">اختر العيادة:</label>
+            <select name="clinicId" id="clinicId" required>
+            <% clinics.forEach(clinic => { %>
+                <option value="<%= clinic.id %>"><%= clinic.name %></option>
+                <% }) %>
+                <option value="null">اخرى.....</option>
+            </select>
+            </div>
+            <!-- <div class="form-group">
+                <label for="hospital">المستشفى/العيادة:</label>
+                <input type="text" id="hospital" name="hospital" required>
+            </div> -->
+            
+            <div class="form-group">
+                <label for="image">رابط الصورة:</label>
+                <input type="url" id="image" name="image" required>
+            </div>
+            <div class="form-group">
+                <label for="username">اسم المستخدم:</label>
+                <input type="text" id="username" name="username" required>
+                <small>سيستخدمه الطبيب لتسجيل الدخول</small>
+            </div>
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">كلمة المرور:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+            </div>
+            
+            <fieldset>
+            <legend>مواعيد العمل</legend>
+            
+            <% const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']; %>
+            <% days.forEach(day => { %>
+                <div class="schedule-day">
+                <h4><%= day %></h4>
+                <div class="form-group">
+                    <label>الفترة الصباحية:</label>
+                    <input type="text" name="schedule[<%= day %>][morning]" 
+                        placeholder="مثال: 9 ص - 12 م" required>
+                </div>
+                <div class="form-group">
+                    <label>الفترة المسائية:</label>
+                    <input type="text" name="schedule[<%= day %>][evening]" 
+                        placeholder="مثال: 5 م - 9 م">
+                </div>
+                </div>
+            <% }); %>
+            </fieldset>
+            <button type="submit" class="btn">إضافة الطبيب</button>
+            <a href="/dashboard" class="btn cancel">إلغاء</a>
+        </form>
+    </main>
+
+<%- include('partials/footer') %>

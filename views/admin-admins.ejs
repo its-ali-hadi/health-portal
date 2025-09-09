@@ -1,0 +1,45 @@
+<%- include('partials/header', { title: 'إدارة المسؤولين' }) %>
+
+    <main class="container">
+        <h1>إدارة المسؤولين</h1>
+        
+        <div class="admin-actions">
+            <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+            <a href="/dashboard/add-admin" class="btn">إضافة مسؤول جديد</a>
+            <a href="https://6s2s87f4-5000.inc1.devtunnels.ms/" target="_blank" class="btn">عرض الملفات</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>اسم المستخدم</th>
+                        <th>تاريخ الإنشاء</th>
+                        <th>آخر تسجيل دخول</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% admins.forEach(admin => { %>
+                        <tr data-admin-id="<%= admin.id %>">
+                            <td><%= admin.id %></td>
+                            <td><%= admin.username %></td>
+                            <td><%= new Date(admin.createdAt).toLocaleString('ar-EG') %></td>
+                            <td><%= admin.lastLogin ? new Date(admin.lastLogin).toLocaleString('ar-EG') : 'لم يسجل دخول' %></td>
+                            <td class="actions">
+                                <% if (admin.username !== 'admin') { %>
+                                    <button class="btn btn-delete">حذف</button>
+                                <% } else { %>
+                                    <span class="protected">الحساب الرئيسي</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/js/admin-admins.js"></script>
+<%- include('partials/footer') %>

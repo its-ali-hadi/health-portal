@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل – خطوة ٣</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>أكمل بيانات حسابك</h2>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form action="/register-details" method="POST">
+      <input type="hidden" name="phone" value="<%= phone %>">
+
+      <label>اسم المستخدم:</label>
+      <input type="text" name="username" required>
+<br>
+      <label>كلمة المرور:</label>
+      <input type="password" name="password" required>
+<br>
+      <label>الاسم كاملاً:</label>
+      <input type="text" name="name" required>
+<br>
+      <label>البريد الإلكتروني (اختياري):</label>
+      <input type="email" name="email">
+<br>
+      <button type="submit">إنشاء الحساب</button>
+    </form>
+  </div>
+</body>
+</html>

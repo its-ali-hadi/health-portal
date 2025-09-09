@@ -1,0 +1,50 @@
+<%- include("partials/header", { title: "تعديل العيادات"}) %>
+
+<main class="container">
+    <h1>تعديل بيانات العيادة</h1>
+    <div class="admin-actions">
+        <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+    </div>
+    <form action="/dashboard/update-clinic/<%= clinic.id %>" method="POST">
+        <div class="form-group">
+            <label>اسم العيادة:</label>
+            <input type="text" name="name" value="<%= clinic.name %>" required>
+        </div> 
+
+        <div class="form-group">
+            <label>موقع العيادة:</label>
+            <input type="text" name="location" value="<%= clinic.location %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>الوصف:</label>
+            <textarea name="description" rows="4" required><%= clinic.description %></textarea>
+        </div>
+        <fieldset style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+            <legend>مواعيد العمل</legend>
+            
+
+
+
+
+
+
+
+
+            <% const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']; %>
+            <% days.forEach(day => { %>
+                <div class="schedule-day" >
+                <h4><%= day %></h4>
+                <div class="form-group">
+                    <input value="<%= clinic.schedule?.[day]?.morning %>" type="text" name="schedule[<%= day %>][morning]" 
+                        placeholder="مثال: 9 ص - 12 م" required>
+                </div>
+                </div>
+            <% }); %>
+            </fieldset>   
+        <button type="submit" class="btn"> حفظ التعديلات</button>
+    </form>
+</main>
+
+
+<%- include("partials/footer") %>
