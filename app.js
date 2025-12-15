@@ -1089,7 +1089,7 @@ app.delete('/dashboard/delete-doctor/:id', requireAdmin, async (req, res) => {
     res.status(500).json({ success: false, message: 'حدث خطأ أثناء الحذف' });
   }
 });
-//
+////
 // دالة لتسجيل النشاطات
 async function logActivity(userId, action, details) {
   const logs = await db.get('activityLogs') || [];
